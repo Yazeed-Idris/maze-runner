@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+td {
+  border: 1px solid black;
+  font-size: 48px;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.no-border-top {
+  border-top: 0;
+}
+
+.no-border-bottom {
+  border-bottom: 0;
+}
+
+.no-border-left {
+  border-left: 0;
+}
+
+.no-border-right {
+  border-right: 0;
+}
