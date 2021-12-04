@@ -83,9 +83,134 @@ export class AppComponent implements OnInit {
     const nodeIndices = this.getNodeIndices(size);
 
     for (let i = 0; i < nodeIndices.midNodes.length; i++) {
-      graph[nodeIndices.midNodes[i]].push(nodeIndices.midNodes[i] - 1)
-      graph[nodeIndices.midNodes[i]].push(nodeIndices.midNodes[i] + size)
+
+      let randomChoice = Math.floor(Math.random() * 4);
+
+      switch (randomChoice) {
+        case 0:
+          graph[nodeIndices.midNodes[i]].push(nodeIndices.midNodes[i] - 1);
+          graph[nodeIndices.midNodes[i] - 1].push(nodeIndices.midNodes[i]);
+          break;
+        case 1:
+          graph[nodeIndices.midNodes[i]].push(nodeIndices.midNodes[i] + 1);
+          graph[nodeIndices.midNodes[i] + 1].push(nodeIndices.midNodes[i]);
+          break;
+        case 2:
+          graph[nodeIndices.midNodes[i]].push(nodeIndices.midNodes[i] + size);
+          graph[nodeIndices.midNodes[i] + size].push(nodeIndices.midNodes[i]);
+          break;
+        case 3:
+          graph[nodeIndices.midNodes[i]].push(nodeIndices.midNodes[i] - size);
+          graph[nodeIndices.midNodes[i] - size].push(nodeIndices.midNodes[i]);
+          break;
+      }
     }
+
+
+    for (let i = 0; i < nodeIndices.midNodes.length; i += 2) {
+
+      let randomChoice = Math.floor(Math.random() * 2);
+
+      switch (randomChoice) {
+        case 0:
+          graph[nodeIndices.midNodes[i]].push(nodeIndices.midNodes[i] - 1);
+          graph[nodeIndices.midNodes[i] - 1].push(nodeIndices.midNodes[i]);
+          break;
+      }
+    }
+
+    for (let i = 1; i < nodeIndices.midNodes.length; i += 2) {
+
+      let randomChoice = Math.floor(Math.random() * 2);
+
+      switch (randomChoice) {
+        case 0:
+          graph[nodeIndices.midNodes[i]].push(nodeIndices.midNodes[i] + size);
+          graph[nodeIndices.midNodes[i] + size].push(nodeIndices.midNodes[i]);
+          break;
+      }
+    }
+
+    for (let i = 0; i < nodeIndices.topEdges.length; i++) {
+
+      let randomChoice1 = Math.floor(Math.random() * 3);
+
+      switch (randomChoice1) {
+        case 0:
+          graph[nodeIndices.topEdges[i]].push(nodeIndices.topEdges[i] + 1);
+          graph[nodeIndices.topEdges[i] + 1].push(nodeIndices.topEdges[i]);
+          break;
+        case 1:
+          graph[nodeIndices.topEdges[i]].push(nodeIndices.midNodes[i] - 1);
+          graph[nodeIndices.topEdges[i] - 1].push(nodeIndices.topEdges[i]);
+          break;
+        case 2:
+          graph[nodeIndices.topEdges[i]].push(nodeIndices.topEdges[i] + size);
+          graph[nodeIndices.topEdges[i] + size].push(nodeIndices.topEdges[i]);
+          break;
+      }
+    }
+
+    for (let i = 0; i < nodeIndices.bottomEdges.length; i++) {
+
+      let randomChoice = Math.floor(Math.random() * 3);
+
+      switch (randomChoice) {
+        case 0:
+          graph[nodeIndices.bottomEdges[i]].push(nodeIndices.bottomEdges[i] + 1);
+          graph[nodeIndices.bottomEdges[i] + 1].push(nodeIndices.bottomEdges[i]);
+          break;
+        case 1:
+          graph[nodeIndices.bottomEdges[i]].push(nodeIndices.bottomEdges[i] - 1);
+          graph[nodeIndices.bottomEdges[i] - 1].push(nodeIndices.bottomEdges[i]);
+          break;
+        case 2:
+          graph[nodeIndices.bottomEdges[i]].push(nodeIndices.bottomEdges[i] - size);
+          graph[nodeIndices.bottomEdges[i] - size].push(nodeIndices.bottomEdges[i]);
+          break;
+      }
+    }
+
+    for (let i = 0; i < nodeIndices.leftEdges.length; i++) {
+
+      let randomChoice = Math.floor(Math.random() * 3);
+
+      switch (randomChoice) {
+        case 0:
+          graph[nodeIndices.leftEdges[i]].push(nodeIndices.leftEdges[i] + 1);
+          graph[nodeIndices.leftEdges[i] + 1].push(nodeIndices.leftEdges[i]);
+          break;
+        case 1:
+          graph[nodeIndices.leftEdges[i]].push(nodeIndices.leftEdges[i] + size);
+          graph[nodeIndices.leftEdges[i] + size].push(nodeIndices.leftEdges[i]);
+          break;
+        case 2:
+          graph[nodeIndices.bottomEdges[i]].push(nodeIndices.bottomEdges[i] - size);
+          graph[nodeIndices.bottomEdges[i] - size].push(nodeIndices.bottomEdges[i]);
+          break;
+      }
+    }
+
+    for (let i = 0; i < nodeIndices.rightEdges.length; i++) {
+
+      let randomChoice = Math.floor(Math.random() * 3);
+
+      switch (randomChoice) {
+        case 0:
+          graph[nodeIndices.rightEdges[i]].push(nodeIndices.rightEdges[i] - 1);
+          graph[nodeIndices.rightEdges[i] - 1].push(nodeIndices.rightEdges[i]);
+          break;
+        case 1:
+          graph[nodeIndices.rightEdges[i]].push(nodeIndices.rightEdges[i] + size);
+          graph[nodeIndices.rightEdges[i] + size].push(nodeIndices.rightEdges[i]);
+          break;
+        case 2:
+          graph[nodeIndices.rightEdges[i]].push(nodeIndices.rightEdges[i] - size);
+          graph[nodeIndices.rightEdges[i] - size].push(nodeIndices.rightEdges[i]);
+          break;
+      }
+    }
+
 
     return graph;
   }
