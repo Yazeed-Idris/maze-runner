@@ -1,3 +1,6 @@
 <div [innerHTML]="mazeCode">
 
 </div>
+
+<button type="button" (click)="breadthFirstSearch(0, 10, graph.slice())">BFS</button>
+<button type="button" (click)="generateNewBoard()">Generate new board</button>

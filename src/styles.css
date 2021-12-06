@@ -23,3 +23,7 @@ table {
 .no-border-right {
   border-right: 0;
 }
+
+.visited {
+  color: blue;
+}

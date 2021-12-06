@@ -19,18 +19,17 @@ export class AppComponent implements OnInit {
     [9, 12],
     [5, 8, 10],
     [9, 14],
-    [7, 15],
+    [7],
     [8],
     [14],
     [10, 13],
-    [11]
+    []
   ]
 
   mazeCode = ``;
 
   ngOnInit(): void {
-    this.graph = this.generateRandomGraph(7)
-    this.mazeCode = this.generateBoard(this.graph);
+    console.log(this.graph);
   }
 
   generateBoard(graph: any[]): string {
@@ -46,7 +45,7 @@ export class AppComponent implements OnInit {
         let index = parseInt(baseNStr, sizeN);
 
         let topNode = index - sizeN;
-        let leftNode = index - 1 ;
+        let leftNode = index - 1;
         let rightNode = index + 1;
         let bottomNode = index + sizeN;
         let clasesStr = ``
@@ -61,14 +60,19 @@ export class AppComponent implements OnInit {
           clasesStr = clasesStr + 'no-border-right '
         }
         if (graph[index].indexOf(bottomNode) > -1) {
-          clasesStr = clasesStr + 'no-border-bottom';
+          clasesStr = clasesStr + 'no-border-bottom ';
         }
+        if (graph[index].indexOf('x') > -1) {
+          clasesStr = clasesStr + 'visited';
+        }
+
         mazeCode = mazeCode + `<td class="${clasesStr}">${index}</td>`
       }
       mazeCode = mazeCode + `</tr>`
     }
     mazeCode += `</table>`
 
+    this.mazeCode = mazeCode;
     return mazeCode;
   }
 
@@ -79,6 +83,9 @@ export class AppComponent implements OnInit {
     for (let i = 0; i < graph.length; i++) {
       graph[i] = [];
     }
+
+    graph[0].push(1);
+    graph[1].push(0);
 
     const nodeIndices = this.getNodeIndices(size);
 
@@ -102,31 +109,6 @@ export class AppComponent implements OnInit {
         case 3:
           graph[nodeIndices.midNodes[i]].push(nodeIndices.midNodes[i] - size);
           graph[nodeIndices.midNodes[i] - size].push(nodeIndices.midNodes[i]);
-          break;
-      }
-    }
-
-
-    for (let i = 0; i < nodeIndices.midNodes.length; i += 2) {
-
-      let randomChoice = Math.floor(Math.random() * 2);
-
-      switch (randomChoice) {
-        case 0:
-          graph[nodeIndices.midNodes[i]].push(nodeIndices.midNodes[i] - 1);
-          graph[nodeIndices.midNodes[i] - 1].push(nodeIndices.midNodes[i]);
-          break;
-      }
-    }
-
-    for (let i = 1; i < nodeIndices.midNodes.length; i += 2) {
-
-      let randomChoice = Math.floor(Math.random() * 2);
-
-      switch (randomChoice) {
-        case 0:
-          graph[nodeIndices.midNodes[i]].push(nodeIndices.midNodes[i] + size);
-          graph[nodeIndices.midNodes[i] + size].push(nodeIndices.midNodes[i]);
           break;
       }
     }
@@ -210,8 +192,6 @@ export class AppComponent implements OnInit {
           break;
       }
     }
-
-
     return graph;
   }
 
@@ -260,4 +240,39 @@ export class AppComponent implements OnInit {
       midNodes,
     }
   }
+
+  breadthFirstSearch(start: any, end: any, graph: any[]) {
+    const queue = [start];
+    const visited = new Set();
+
+    while (queue.length > 0) {
+      const node = queue.shift();
+      const destinations: any[] = graph[node];
+
+      for (let destination of destinations) {
+
+        if (typeof destination === "number") {
+
+          graph[destination].push('x');
+          if (destination === end) {
+            console.log('success');
+            break;
+          }
+
+          if (!visited.has(destination)) {
+            visited.add(destination);
+            queue.push(destination);
+          }
+        }
+      }
+    }
+    this.graph = graph;
+    this.generateBoard(this.graph);
+  }
+
+  generateNewBoard() {
+    this.graph = this.generateRandomGraph(5);
+    this.generateBoard(this.graph);
+  }
+
 }
